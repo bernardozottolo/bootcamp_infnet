@@ -16,6 +16,7 @@ def resp_binaria (variavel, cod1, ref_cod1, cod2, ref_cod2, texto):
 
 dados_clientes = {'id_cliente': [], 'nome_cliente':[], 'idade_cliente':[], 'cpf_cliente':[], 'ids_albuns':[], 'total_da_venda':[], 'total_compras_cliente':[]}
 
+
 estoque = {
 'Rock': {
 "ALB0001": {"artista": "AC/DC", "titulo": "Highway to Hell", "ano_lancamento": 1979, "preco": 24.99, "estoque": 50},
@@ -128,7 +129,7 @@ while rpt.lower()=='1':
     cliente_ou_nao = input('Primeira vez por aqui?\n1 --> sim\n2 --> não\n9 --> Para encerrar\nInsira um código: ')
     os.system('cls')
     while (cliente_ou_nao!='1' and cliente_ou_nao!='2') and cliente_ou_nao!='9':
-        cliente_ou_nao = input("Código inválido!\nJá é cliente da loja?\nS --> Sim\nN --> Não\n9 --> Para encerrar\nInsira um código: ")
+        cliente_ou_nao = input("Código inválido!\nJá é cliente da loja?\n1 --> Sim\n2 --> Não\n9 --> Para encerrar\nInsira um código: ")
         os.system('cls')
         if cliente_ou_nao == '9':
             break
@@ -285,10 +286,10 @@ while rpt.lower()=='1':
             while genero.isnumeric()==False or int(genero) not in cod_generos: # Para verificar se inseriu um código válido
                 if genero == 'cancelar': #caso tenha inserido a opção de cancelar
                     break
-                print('Código inválido!\nInsira um código válido para o gênero do álbum:')
+                print('Código inválido!\nInsira um código válido para o gênero do álbum:\n')
                 for i in cod_generos:
                     print(f'{cod_generos[i]} --> {i}')                    
-                genero = input('Insira o código: ')
+                genero = input('\nInsira o código: ')
                 os.system('cls')
             if genero == 'cancelar':#caso tenha inserido a opção de cancelar
                 break
@@ -313,14 +314,15 @@ while rpt.lower()=='1':
                 os.system('cls')
                 confirmar = input(f"Álbum selecionado:\n{album}\n{estoque[cod_generos[int(genero)]][album]['artista']} - {estoque[cod_generos[int(genero)]][album]['titulo']} - {estoque[cod_generos[int(genero)]][album]['ano_lancamento']} - ${estoque[cod_generos[int(genero)]][album]['preco']:.2f}\n'C' --> para confirmar\n'R' --> Para retornar para os gêneros\n\nInsira o código: ")   
             #Confirmação da compra
-                while confirmar.lower() != 'c' and confirmar.lower()!='r':
-                    confirmar = input(f"Código Inválido!\n\nÁlbum selecionado:\n{album}\n{estoque[cod_generos[int(genero)]][album]['artista']} - {estoque[cod_generos[int(genero)]][album]['titulo']} - {estoque[cod_generos[int(genero)]][album]['ano_lancamento']} - ${estoque[cod_generos[int(genero)]][album]['preco']:.2f}\n'C' --> para confirmar\n'R' --> Para retornar para os gêneros\n\nInsira o código: ")
-                if confirmar.lower() == 'r':
-                    album == 'r'
+            while confirmar.lower() != 'c' and confirmar.lower()!='r':
+                confirmar = input(f"Código Inválido!\n\nÁlbum selecionado:\n{album}\n{estoque[cod_generos[int(genero)]][album]['artista']} - {estoque[cod_generos[int(genero)]][album]['titulo']} - {estoque[cod_generos[int(genero)]][album]['ano_lancamento']} - ${estoque[cod_generos[int(genero)]][album]['preco']:.2f}\n'C' --> para confirmar\n'R' --> Para retornar para os gêneros\n\nInsira o código: ")
+            if confirmar.lower() == 'r':
+                album = 'r'
+                os.system('cls')
         album_list = [] #Criando uma lista de albuns comprado, para que seja uma lista de albuns para cada cliente
         album_list.append(album)
         dados_clientes['nome_cliente'].append(novo_cliente) #Adicionando o nome do cliente ao banco de dados
-        dados_clientes['idade_cliente'].append(idade) #Adicionando a idade do cliente ao banco de dados
+        dados_clientes['idade_cliente'].append(int(idade)) #Adicionando a idade do cliente ao banco de dados
         dados_clientes['cpf_cliente'].append(cpf) #Adicionando o CPF do cliente ao banco de dados
         n = dados_clientes['nome_cliente'].index(novo_cliente) #pegando o index do cliente
         os.system('cls')
@@ -360,7 +362,7 @@ while rpt.lower()=='1':
 
         album = 'r'
         while album.lower() == 'r':
-            print('Insira o gênero que do álbum que deseja:')
+            print('Insira o gênero que do álbum que deseja:\n')
             cod_generos={}
             num_generos=0
             for i in estoque:
@@ -373,10 +375,10 @@ while rpt.lower()=='1':
             while genero.isnumeric()==False or int(genero) not in cod_generos: # Para verificar se inseriu um código válido
                 if genero == 'cancelar': #caso tenha inserido a opção de cancelar
                     break
-                print('Código inválido!\nInsira um código válido para o gênero do álbum:')
+                print('Código inválido!\nInsira um código válido para o gênero do álbum:\n')
                 for i in cod_generos:
                     print(f'{cod_generos[i]} --> {i}')                    
-                genero = input('Insira o código: ')
+                genero = input('\nInsira o código: ')
                 os.system('cls')
             if genero == 'cancelar':#caso tenha inserido a opção de cancelar
                 break
@@ -405,6 +407,7 @@ while rpt.lower()=='1':
                 os.system('cls')
             if confirmar.lower() == 'r':
                 album == 'r'
+                os.system('cls')
         dados_clientes['ids_albuns'][n].append(album) #FEITO Adicionando o album a lista de albums do cliente
         price = estoque[cod_generos[int(genero)]][album]['preco'] #Atribuindo a uma variável o preço da do álbum
         dados_clientes['total_compras_cliente'][n] += 1 #Incrementando em uma unidade o número de vezes que o cliente fez uma compra
@@ -420,7 +423,7 @@ while rpt.lower()=='1':
     os.system('cls')
     buy_more = resp_binaria(buy_more, '1', 'Sim', '2', 'Não', 'Você gostaria de comprar algo mais?')
     while buy_more.lower() == '1':
-        print('Insira o gênero que do álbum que deseja:')
+        print('Insira o gênero que do álbum que deseja:\n')
         cod_generos={}
         num_generos=0
         for i in estoque:
@@ -433,10 +436,10 @@ while rpt.lower()=='1':
         while genero.isnumeric()==False or int(genero) not in cod_generos: # Para verificar se inseriu um código válido
             if genero == 'cancelar': #caso tenha inserido a opção de cancelar
                 break
-            print('Código inválido!\nInsira um código válido para o gênero do álbum:')
+            print('Código inválido!\nInsira um código válido para o gênero do álbum:\n')
             for i in cod_generos:
                 print(f'{cod_generos[i]} --> {i}')                    
-            genero = input('Insira o código: ')
+            genero = input('\nInsira o código: ')
             os.system('cls')
         if genero == 'cancelar':#caso tenha inserido a opção de cancelar
             break
@@ -641,25 +644,48 @@ if len(dados_clientes["id_cliente"]) >= 1:
     # - 35 a 55 anos
     # - acima de 55 anos
 
-    print("Albúns mais vendidos por faixa-etária:/n")
+    print("Albúns mais vendidos por faixa-etária:\n\n")
 
-    print("Abaixo de 18 anos:")
-    for i in range(len(menor_que_18)): #Vai chamar para os generos mais comprados em ordem para cada faixa-etária
-        print(f"{i+1} - {menor_que_18[i]} - {generos_por_idade['menor_que_18'][menor_que_18[i]]}") #Vai imprimir a posição, gênero e o número de vendas desse gênero naquela faixa etária
+    print("Abaixo de 18 anos:\n")
+    if (len(menor_que_18)) > 0:
+        for i in range(len(menor_que_18)): #Vai chamar para os generos mais comprados em ordem para cada faixa-etária
+            print(f"{i+1} - {menor_que_18[i]} - {generos_por_idade['menor_que_18'][menor_que_18[i]]}") #Vai imprimir a posição, gênero e o número de vendas desse gênero naquela faixa etária
+    else:
+        print('Sem álbuns vendidos para pessoas abaixo de 18 anos.')
+    print()
     
-    print("Entre 18 e 25 anos:")
-    for i in range(len(entre_18_e_25)):
-        print(f"{i+1} - {entre_18_e_25[i]} - {generos_por_idade['entre_18_e_25'][entre_18_e_25[i]]}")
+    print("Entre 18 e 25 anos:\n")
+    if (len(entre_18_e_25)) > 0:
+        for i in range(len(entre_18_e_25)):
+            print(f"{i+1} - {entre_18_e_25[i]} - {generos_por_idade['entre_18_e_25'][entre_18_e_25[i]]}")
+    else:
+        print('Sem álbuns vendidos para pessoas entre 18 e 25 anos.')
+    print()
     
-    print("Entre 18 e 25 anos:")
-    for i in range(len(entre_25_e_35)):
-        print(f"{i+1} - {entre_25_e_35[i]} - {generos_por_idade['entre_25_e_35'][entre_25_e_35[i]]}")
+    print("Entre 18 e 25 anos:\n")
+    if (len(entre_25_e_35)) > 0:
+        for i in range(len(entre_25_e_35)):
+            print(f"{i+1} - {entre_25_e_35[i]} - {generos_por_idade['entre_25_e_35'][entre_25_e_35[i]]}")
+    else:
+        print('Sem álbuns vendidos para pessoas entre 25 e 35 anos.')
+    print()
     
-    print("Entre 18 e 25 anos:")
-    for i in range(len(entre_35_e_55)):
-        print(f"{i+1} - {entre_35_e_55[i]} - {generos_por_idade['entre_35_e_55'][entre_35_e_55[i]]}")
-    
-    print("Acima de 55 anos:")
-    for i in range(len(maior_que_55)):
-        print(f"{i+1} - {maior_que_55[i]} - {generos_por_idade['maior_que_55'][maior_que_55[i]]}")
+    print("Entre 18 e 25 anos:\n")
+    if (len(entre_35_e_55)) > 0:
+        for i in range(len(entre_35_e_55)):
+            print(f"{i+1} - {entre_35_e_55[i]} - {generos_por_idade['entre_35_e_55'][entre_35_e_55[i]]}")
+    else:
+        print('Sem álbuns vendidos para pessoas entre 35 e 55 anos.')
+    print()
+
+    print("Acima de 55 anos:\n")
+    if (len(maior_que_55)) > 0:
+        for i in range(len(maior_que_55)):
+            print(f"{i+1} - {maior_que_55[i]} - {generos_por_idade['maior_que_55'][maior_que_55[i]]}")
+    else:
+        print('Sem álbuns vendidos para pessoas acima de 55 anos.')
+    print()
+
+
+print(dados_clientes)
 
