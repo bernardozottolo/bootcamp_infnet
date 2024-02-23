@@ -1,0 +1,9 @@
+Carregar o dataset Iris 
+Analisar os dados para compreensão do problema - visualizar, identificar as classes 
+Usando a biblioteca MLP do sklearn projetar uma Rede Neural
+Dividir o conjunto de dados em Treino e Teste - usar 10% do treino como conjunto de validação (esta configuração é feita por uma variável de entrada do método)
+Analisar de forma separada o impacto dos seguintes hiperparâmetros (variar pelo 5 valores diferentes para cada hiperparâmetros):
+- Learning rate 
+- Função de ativação 
+- Epochs
+- Número de neurônios na camada intermediária 
